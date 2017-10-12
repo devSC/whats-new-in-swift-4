@@ -19,17 +19,20 @@ dict[2]
  ### Merging initializer and `merge` method
  
  Specify how duplicate keys should be handled when creating a dictionary from a sequence or merging a sequence into an existing dictionary.
+
+ Merging initializer:
  */
 let duplicates = [("a", 1), ("b", 2), ("a", 3), ("b", 4)]
 let letters = Dictionary(duplicates, uniquingKeysWith: { (first, _) in first })
 letters
 
-let defaults = ["foo": false, "bar": false, "baz": false]
-var options = ["foo": true, "bar": false]
-// This gives me an annoying type checker error: error: generic parameter 'S' could not be inferred
-// I believe this is related to https://bugs.swift.org/browse/SR-922
-//options.merge(defaults) { (old, _) in old }
-
+/*:
+ `merge` method:
+ */
+let defaults = ["darkUI": false, "energySaving": false, "smoothScrolling": false]
+var options = ["darkUI": true, "energySaving": false]
+options.merge(defaults) { (old, _) in old }
+options
 /*:
  ### Subscript with default value
  
@@ -68,6 +71,7 @@ mapped
 let set: Set = [1,2,3,4,5]
 let filteredSet = set.filter { $0 % 2 == 0 }
 type(of: filteredSet)
+filteredSet
 
 /*:
  ### Grouping a sequence
@@ -78,4 +82,6 @@ let contacts = ["Julia", "Susan", "John", "Alice", "Alex"]
 let grouped = Dictionary(grouping: contacts, by: { $0.first! })
 grouped
 
-/*: [Table of contents](Table%20of%20contents) • [Previous page](@previous) • [Next page](@next) */
+/*:
+ [Table of contents](Table%20of%20contents) • [Previous page](@previous) • [Next page](@next)
+ */
